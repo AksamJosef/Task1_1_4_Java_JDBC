@@ -9,13 +9,14 @@ import java.util.List;
 
 public class UserDaoJDBCImpl implements UserDao {
 
-    private Connection connection = Util.getConnection();
+
 
     public UserDaoJDBCImpl() {
 
     }
 
     public void createUsersTable() {
+        Connection connection = Util.getConnection();
         String sql = "CREATE TABLE IF NOT EXISTS User (\n" +
                 "\tid INTEGER AUTO_INCREMENT PRIMARY KEY,\n" +
                 "    name VARCHAR (40),\n" +
@@ -30,6 +31,7 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void dropUsersTable() {
+        Connection connection = Util.getConnection();
         String sql = "DROP TABLE IF EXISTS User";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.executeUpdate();
@@ -39,6 +41,7 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void saveUser(String name, String lastName, byte age) {
+        Connection connection = Util.getConnection();
         String sql = "INSERT INTO User(name, lastName, age) VALUES(?, ?, ?)";
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)){
@@ -54,6 +57,7 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void removeUserById(long id) {
+        Connection connection = Util.getConnection();
         String sql = String.format("DELETE FROM User WHERE id = %d LIMIT 1", id);
 
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
@@ -64,6 +68,7 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public List<User> getAllUsers() {
+        Connection connection = Util.getConnection();
         List<User> userList = new ArrayList<>();
         String sql = "SELECT id, name, lastName, age FROM User";
         try (Statement statement = connection.createStatement()) {
@@ -84,6 +89,7 @@ public class UserDaoJDBCImpl implements UserDao {
     }
 
     public void cleanUsersTable() {
+        Connection connection = Util.getConnection();
         String sql = "TRUNCATE User";
         try (PreparedStatement preparedStatement = connection.prepareStatement(sql)) {
             preparedStatement.executeUpdate();
