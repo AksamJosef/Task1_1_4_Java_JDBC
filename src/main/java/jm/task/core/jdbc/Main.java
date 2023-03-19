@@ -6,28 +6,29 @@ import java.sql.SQLException;
 
 public class Main {
 
-    private static final UserService userService = new UserServiceImpl();
     private void save(String name, String lastName, byte age) {
-        userService.saveUser(name, lastName, age);
-        System.out.println("User с именем " + name + " добавлен в базу данных");
+//        (name, lastName, age);
+
     }
     public static void main(String[] args) throws SQLException {
-
-//        !1. убрать лишние файлы из проекта на гит
-//        !2. инициализация коннекшн в каждом методе
-//        !3. внедряй через интерфейсы
-//        !4. поля класса - приватные финальные
-//        !5. убрать из мейна статик методы!
-
-
-        Main main = new Main();
+        UserService userService = new UserServiceImpl();
 
         userService.createUsersTable();
 
-        main.save("Nigmat", "Nigmatullin", (byte) 25);
-        main.save("Ayusha", "Nigmatullin", (byte) 25);
-        main.save("Assaf Josef", "Nigmatullin", (byte) 1);
-        main.save("Jotaro", "Kujo", (byte) 111);
+
+        userService.saveUser("Nigmat", "Nigmatullin", (byte) 25);
+        System.out.println("User с именем Nigmat добавлен в базу данных");
+//        System.out.println("User с именем " + name + " добавлен в базу данных");
+
+        userService.saveUser("Ayusha", "Nigmatullina", (byte) 25);
+        System.out.println("User с именем Ayusha добавлен в базу данных");
+
+        userService.saveUser("Assaf Josef", "Nigmatullin", (byte) 1);
+        System.out.println("User с именем Assaf Josef добавлен в базу данных");
+
+        userService.saveUser("Jotaro", "Kujo", (byte) 111);
+        System.out.println("User с именем Jotaro добавлен в базу данных");
+
 
 
         System.out.println();
